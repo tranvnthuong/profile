@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="shortcut icon" type="image/png" href="https://gif-avatars.com/img/45x45/sad-yuu.gif" />
+    <title>Thượng TV</title>
+    <style>
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #333;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        .card {
+            position: relative;
+            width: 350px;
+            height: 190px;
+            background: #333;
+            transition: 0.5s;
+            z-index: 20;
+        }
+
+        .card .lines {
+            position: absolute;
+            inset: 0;
+            background: #000;
+            z-index: 20;
+            overflow: hidden;
+        }
+
+        .card .lines::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 120px;
+            background: linear-gradient(transparent, #45f3ff, #45f3ff, #45f3ff, transparent);
+            animation: animate 4s linear infinite;
+        }
+
+@keyframes animate {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .card .lines::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: #292929;
+        }
+
+        .card .imgBx {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translate(-50%);
+            width: 150px;
+            height: 150px;
+            background: #000;
+            transition: 0.5s;
+            z-index: 20;
+            overflow: hidden;
+        }
+
+        .card .imgBx::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 150px;
+            background: linear-gradient(transparent, #ff3c7b, #ff3c7b, #ff3c7b, transparent);
+            animation: animate2 6s linear infinite;
+        }
+
+@keyframes animate2 {
+            0% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+        }
+
+        .card .imgBx::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: #292929;
+        }
+
+        .card .imgBx img {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: calc(100% - 20px);
+            height: calc(100% -20px);
+            filter: grayscale(1);
+            z-index: 21;
+        }
+
+        .card .content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 20;
+            overflow: hidden;
+        }
+
+        .card .content #showmorebtn {
+            position: absolute;
+            right: 0;
+            background: none;
+            border-radius: 50%;
+            padding: 10px;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            color: #fff;
+            z-index: 30;
+        }
+
+        .card .content .details {
+            padding: 40px;
+            text-align: center;
+            width: 100%;
+            transition: 0.5s;
+            transform: translateY(145px);
+            z-index: 20;
+        }  
+
+        .card .content .details h2 {
+            font-size: 1.25em;
+            font-weight: 600;
+            color: #45f3ff;
+            line-height: 1.2em;
+        }
+
+        .card .content .details h2 span {
+            font-size: 0.75em;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .card .content .details .data {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .card .content .details h3 {
+            font-size: 1em;
+            font-weight: 600;
+            color: #45f3ff;
+            line-height: 1.2em;
+        }
+
+        .card .content .details h3 span {
+            font-size: 0.85em;
+            font-weight: 400;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .card .content .details .actionBtn button {
+            padding: 10px 20px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: 500;
+            background: #45f3ff;
+            color: #222;
+            cursor: pointer;
+            opacity: 0.9;
+        }
+
+        .card .content .details .actionBtn button:nth-child(2) {
+            background: #fff;
+        }
+
+        .card .content .details .actionBtn button:hover {
+            opacity: 1;
+        }
+
+        .musicBtn {
+            position: fixed;
+            top: 10%;
+            right: 5px;
+            width: 35px;
+            height: 35px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+            z-index: 100;
+        }
+
+        .musicBtn::before {
+            display: block;
+            position: absolute;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #fbff00;
+            opacity: 0;
+            content: '';
+            animation: pulse 1s infinite;
+        }
+
+        .musicBtn:hover::before {
+            animation: none;
+            opacity: .4;
+            transform: scale(1.3);
+        }
+
+        .musicBtn.is-clicked {
+            background: linear-gradient(to bottom, white 0%, white 100%);
+        }
+
+        .musicBtn.is-clicked:before {
+            animation: blastOut 1s;
+        }
+
+@keyframes pulse {
+            from {
+                transform: scale(1);
+                opacity: .4;
+            }
+
+            to {
+                transform: scale(1.3);
+                opacity: 0;
+            }
+        }
+
+@keyframes blastOut {
+            from {
+                transform: scale(0.9);
+                opacity: .4;
+            }
+
+            to {
+                transform: scale(10);
+                opacity: 0;
+            }
+        }
+
+        .canvas {
+            position: absolute;
+            bottom: -100%;
+            height: 190px;
+            width: 350px;
+            z-index: 9;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+
+        .sakura {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 25;
+            pointer-events: none;
+        }
+
+        .sakura span {
+            position: absolute;
+            top: -10%;
+            left: 0;
+            width: .8vw;
+            height: .4vw;
+            border-radius: 5% 80% 10%;
+            background-color: #ffb6c1
+        }
+
+        .sakura span:nth-child(odd){animation:10s linear infinite sakura-anim-1}.sakura span:nth-child(2n+2){animation:10s linear infinite sakura-anim-2}.sakura span:first-child{left:0}.sakura span:nth-child(2){left:2%}.sakura span:nth-child(3){left:4%}.sakura span:nth-child(4){left:6%}.sakura span:nth-child(5){left:8%}.sakura span:nth-child(6){left:10%}.sakura span:nth-child(7){left:12%}.sakura span:nth-child(8){left:14%}.sakura span:nth-child(9){left:16%}.sakura span:nth-child(10){left:18%}.sakura span:nth-child(11){left:20%}.sakura span:nth-child(12){left:22%}.sakura span:nth-child(13){left:24%}.sakura span:nth-child(14){left:26%}.sakura span:nth-child(15){left:28%}.sakura span:nth-child(16){left:30%}.sakura span:nth-child(17){left:32%}.sakura span:nth-child(18){left:34%}.sakura span:nth-child(19){left:36%}.sakura span:nth-child(20){left:38%}.sakura span:nth-child(21){left:40%}.sakura span:nth-child(22){left:42%}.sakura span:nth-child(23){left:44%}.sakura span:nth-child(24){left:46%}.sakura span:nth-child(25){left:48%}.sakura span:nth-child(26){left:50%}.sakura span:nth-child(27){left:52%}.sakura span:nth-child(28){left:54%}.sakura span:nth-child(29){left:56%}.sakura span:nth-child(30){left:58%}.sakura span:nth-child(31){left:60%}.sakura span:nth-child(32){left:62%}.sakura span:nth-child(33){left:64%}.sakura span:nth-child(34){left:66%}.sakura span:nth-child(35){left:68%}.sakura span:nth-child(36){left:70%}.sakura span:nth-child(37){left:72%}.sakura span:nth-child(38){left:74%}.sakura span:nth-child(39){left:76%}.sakura span:nth-child(40){left:78%}.sakura span:nth-child(41){left:80%}.sakura span:nth-child(42){left:82%}.sakura span:nth-child(43){left:84%}.sakura span:nth-child(44){left:86%}.sakura span:nth-child(45){left:88%}.sakura span:nth-child(46){left:90%}.sakura span:nth-child(47){left:92%}.sakura span:nth-child(48){left:94%}.sakura span:nth-child(49){left:96%}.sakura span:nth-child(50){left:98%}.sakura span:nth-child(3n+1){width:1vw;height:.5vw}.sakura span:nth-child(3n+2){width:.8vw;height:.4vw}.sakura span:nth-child(3n+3){width:.6vw;height:.3vw}.sakura span:nth-child(4n+1){animation-duration:5s}.sakura span:nth-child(4n+2){animation-duration:12s}.sakura span:nth-child(4n+3){animation-duration:8s}.sakura span:nth-child(4n+4){animation-duration:6s}.sakura span:nth-child(11n+1){animation-delay:0s}.sakura span:nth-child(11n+2){animation-delay:9s}.sakura span:nth-child(11n+3),.sakura span:nth-child(11n+9){animation-delay:2s}.sakura span:nth-child(11n+4){animation-delay:5s}.sakura span:nth-child(11n+5){animation-delay:6s}.sakura span:nth-child(11n+6){animation-delay:7s}.sakura span:nth-child(11n+7){animation-delay:3s}.sakura span:nth-child(11n+8){animation-delay:1s}.sakura span:nth-child(11n+10){animation-delay:11s}.sakura span:nth-child(11n+11){animation-delay:10s}@keyframes sakura-anim-1{0%{top:-10%;transform:translateX(0) rotateX(0) rotateY(0)}100%{top:100%;transform:translateX(15vw) rotateX(180deg) rotateY(360deg)}}@keyframes sakura-anim-2{0%{top:-10%;transform:translateX(0)}100%{top:100%;transform:translateX(-15vw) rotateX(180deg) rotateY(360deg)}}
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="sakura">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <button class="musicBtn" id="musicBtn" onclick="toggleMusicplayer()"><i class="fa-solid fa-music"></i></button>
+    <div class="main" id="mainMp">
+        <div class="top_section">
+            <h5>Menu nhạc&nbsp;&nbsp;<i class="fa-solid fa-headphones"></i></h5>
+        </div>
+        <div class="tracks">
+            <div class="small_music_player">
+                <div class="s_player_img">
+                    <div class="playing_img">
+                        <img src="images/1.jpg" alt="">
+                    </div>
+                    <div class="wave_animation">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </div>
+                </div>
+
+                <div class="song_detail">
+                    <p id="song_name">
+                        Make Me Move
+                    </p>
+                    <p id="artist_name">
+                        NoCopyrightSounds [NCS]
+                    </p>
+                </div>
+                <i class="fa-solid fa-chevron-up" id="up_player"></i>
+            </div>
+            <div class="popup_music_player">
+                <div class="top">
+                    <p>
+                        Đang phát
+                    </p>
+                    <i class="fa-solid fa-chevron-down" id="down_player"></i>
+                </div>
+
+                <div class="song_img">
+                    <img src="images/1.jpg" alt="">
+                </div>
+
+                <div class="song_description">
+                    <h3 id="current_track_name">Make Me Move</h3>
+                    <p id="current_singer_name">
+                        NoCopyrightSounds [NCS]
+                    </p>
+                </div>
+                <div class="controlls">
+                    <div class="progress_part">
+                        <input type="range" min="0" max="100" value="0" id="slider" onchange="change_duration()">
+                        <div class="durations">
+                            <p id="current_duration">
+                                0:00
+                            </p>
+                            <p id="total_duration">
+                                0:00
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="controlls_btns">
+                        <button id="backward_btn"><i class="fa-solid fa-step-backward"></i></button>
+                        <button id="play_pause_btn"><i class="fa-solid fa-play"></i></button>
+                        <button id="forward_btn"><i class="fa-solid fa-step-forward"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="musicList"></div>
+    <div class="card" id="card">
+        <div class="lines"></div>
+        <div class="imgBx" id="imgBx">
+            <img src="avatarImage.JPEG" alt="Profile Picture">
+        </div>
+        <div class="content">
+            <button id="showmorebtn" onclick="showmoreContent(this)"><i class="fa-solid fa-chevron-down"></i></button>
+            <div class="details" id="details">
+                <h2>Trần Văn Thượng<br><span>PersonalPage/tranvanthuong</Tr></span></h2>
+            <div class="data">
+                <h3 id="view">500<br><span>View</span></h3>
+                <h3 id="follow">200k<br><span>Followers</span></h3>
+                <h3 id="follows">236<br><span>Following</span></h3>
+            </div>
+            <div class="actionBtn">
+                <button onclick="openlink(1)"><i
+                    class="fa-brands fa-facebook"></i></i></button>
+            <button onclick="openlink(2)"><i
+                class="fa-brands fa-facebook-messenger"></i></button>
+            <button onclick="alert('Chưa có')"><i class="fa-brands fa-instagram"></i></button>
+            <button onclick="alert('Chưa có')"><i class="fa-brands fa-tiktok"></i></button>
+        </div>
+    </div>
+</div>
+<canvas class="canvas" id="canvas"></canvas>
+</div>
+<script>
+var togglemusic = false;
+function toggleMusicplayer() {
+if (togglemusic == false) {
+document.getElementById("mainMp").style.transform = "translateX(0%)";
+togglemusic = true;
+} else {
+document.getElementById("mainMp").style.transform = "translateX(110%)";
+togglemusic = false;
+}
+}
+function getDetails() {
+document.getElementById("view").innerHTML = Math.floor((Math.random() * 8990) + 100) + "<br><span>Views</span>";
+document.getElementById("follow").innerHTML = Math.floor((Math.random() * 899) + 100) + "k<br><span>Followers</span>";
+document.getElementById("follows").innerHTML = Math.floor((Math.random() * 899) + 100) + "<br><span>Following</span>";
+}
+getDetails();
+
+var showmore = false;
+function showmoreContent(button) {
+    let iconclass = button.querySelector('.fa-solid');
+    let card = document.getElementById("card"), imgBx = document.getElementById("imgBx"), canvas = document.getElementById("canvas")
+    if(showmore === false) {
+        card.style.height = "450px";
+        imgBx.style.width = "250px";
+        imgBx.style.height = "250px";
+        details.style.transform = "translateY(0px)";
+        canvas.style.bottom = "-25%";
+        iconclass.classList.replace('fa-chevron-down', 'fa-chevron-up');
+        showmore = true;
+    }
+    else {
+        card.style.height = "190px";
+        imgBx.style.width = "150px";
+        imgBx.style.height = "150px";
+        details.style.transform = "translateY(145px)";
+        canvas.style.bottom = "-100%";
+        iconclass.classList.replace('fa-chevron-up', 'fa-chevron-down');
+        showmore = false;
+    }
+}
+
+function openlink(index) {
+switch (index) {
+    case 1:
+        window.location = "https://facebook.com/thuongwbw";
+        break;
+    case 2:
+        window.location = "https://tranvnthuong.github.io/simple-message?idchat=tranvanthuong";
+        break;
+    default:
+        alert("invalid link");
+}
+}
+</script>
+<script src="song_list.js"></script>
+<script src="main.js"></script>
+</body>
+
+</html>
