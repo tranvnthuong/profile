@@ -13,10 +13,10 @@ const All_song = [
     singer: "Jack (5 triệu)"
   },
   {
-    name: "Đom Đóm 「Lofi Ver.」",
-    path: "https://files.catbox.moe/aon0k5.mp3",
+    name: "Đom Đóm",
+    path: "https://files.catbox.moe/t2zl0l.mp3",
     img: "https://i.imgur.com/aVTLehn.jpeg",
-    singer: "Jack - J97 x Quanvrox"
+    singer: "J97 (5 Củ)"
   },
   {
     name: "FRIENDSHIP",
