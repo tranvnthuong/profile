@@ -2,7 +2,7 @@
 const All_song = [
   {
     name: "Đừng Làm Trái Tim Anh Đau",
-    path: "https://files.catbox.moe/n0yppm.mp3",
+    path: "https://files.catbox.moe/uttj7e.mp3",
     img: "https://i.imgur.com/x7BLTwp.jpg",
     singer: "Sơn Tùng M-TP"
   },
