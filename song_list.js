@@ -1,16 +1,34 @@
 //song list
 const All_song = [
   {
-    name: "That Girl",
-    path: "https://files.catbox.moe/4bjjfg.mp3",
-    img: "https://i.ibb.co/Pt4ZJJd/that-girl-1545280005.jpg",
-    singer: "Olly Murs"
+    name: "Đừng Làm Trái Tim Anh Đau",
+    path: "https://files.catbox.moe/n0yppm.mp3",
+    img: "https://i.imgur.com/x7BLTwp.jpg",
+    singer: "Sơn Tùng M-TP"
   },
   {
     name: "Thiên Lý Ơi",
     path: "https://files.catbox.moe/m8b4hr.mp3",
     img: "https://i.imgur.com/e28b0dD.png",
     singer: "Jack (5 triệu)"
+  },
+  {
+    name: "Đom Đóm 「Lofi Ver.」",
+    path: "https://files.catbox.moe/aon0k5.mp3",
+    img: "https://i.imgur.com/aVTLehn.jpeg",
+    singer: "Jack - J97 x Quanvrox"
+  },
+  {
+    name: "FRIENDSHIP",
+    path: "https://files.catbox.moe/fj6ssd.mp3",
+    img: "https://i.imgur.com/mta92pW.jpeg",
+    singer: "Đen Vâu"
+  },
+  {
+    name: "Harehare ya",
+    path: "https://files.catbox.moe/1175cb.mp3",
+    img: "https://i.imgur.com/r9owjFE.jpeg",
+    singer: "Sou"
   },
   {
     name: "Hoa Cỏ Lau",
