@@ -219,7 +219,7 @@ function showVisual(audioTag) {
     source.connect(analyser);
     analyser.connect(audioContext.destination);
 
-    analyser.fftSize = 512;
+    analyser.fftSize = 1024;
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
