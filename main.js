@@ -47,6 +47,7 @@ btn.forEach((btn, index) => {
     song[index].currentTime = 0;
 
     if (song_status == false) {
+      showVisual(song[index_no]);
       play_song();
     } else {
       pause_song();
@@ -146,6 +147,7 @@ forward_btn.addEventListener('click', function () {
   }
 
   song[index_no].currentTime = 0;
+  showVisual(song[index_no]);
   play_song();
 });
 
@@ -160,7 +162,7 @@ backward_btn.addEventListener('click', function () {
   }
 
   song[index_no].currentTime = 0;
-
+  showVisual(song[index_no]);
   play_song();
 });
 
@@ -191,59 +193,88 @@ function play_song() {
   current_track_name.innerHTML = All_song[index_no].name;
   current_singer_name.innerHTML = All_song[index_no].singer;
   play_pause_btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-  showVisual(song[index_no]);
 }
 
+let currentVisualizer = null;
+let runOnce = true;
 function showVisual(audioTag) {
-
-  var canvas = document.getElementById("canvas");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  var ctx = canvas.getContext("2d");
-  
-  var context = new AudioContext();
-  var src = context.createMediaElementSource(audioTag);
-  var analyser = context.createAnalyser();
-  src.connect(analyser);
-  analyser.connect(context.destination);
-
-  analyser.fftSize = 256;
-
-  var bufferLength = analyser.frequencyBinCount;
-
-  var dataArray = new Uint8Array(bufferLength);
-
-  var WIDTH = canvas.width;
-  var HEIGHT = canvas.height;
-
-
-  var barWidth = (WIDTH / bufferLength) * 2.5;
-  var barHeight;
-  var x = 0;
-
-  function renderFrame() {
-    requestAnimationFrame(renderFrame);
-
-    x = 0;
-
-    analyser.getByteFrequencyData(dataArray);
-
-    ctx.fillStyle = "#333";
-
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);
-
-    for (var i = 0; i < bufferLength; i++) {
-      barHeight = dataArray[i];
-
-      /*var r = barHeight + (25 * (i / bufferLength));
-      var g = 250 * (i / bufferLength);
-      var b = 50;*/
-
-      ctx.fillStyle = "#fff";//"rgb(" + r + "," + g + "," + b + ")";
-      ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
-
-      x += barWidth + 1;
+    if (runOnce) {
+      document.getElementById("visualizer-container").style.width = "350px";
+      document.getElementById("visualizer-container").style.height = "160px";
+      runOnce = false;
     }
-  }
-  renderFrame();
-};
+    if (currentVisualizer) {
+        const container = document.getElementById('visualizer');
+        container.removeChild(currentVisualizer.domElement);
+        currentVisualizer.dispose();
+        currentVisualizer = null;
+    }
+
+    document.getElementById("visualizer").innerHTML = `${All_song[index_no].name}
+    <i class="fa-solid fa-compact-disc fa-spin"></i>`;
+
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const source = audioContext.createMediaElementSource(audioTag);
+    const analyser = audioContext.createAnalyser();
+    source.connect(analyser);
+    analyser.connect(audioContext.destination);
+
+    analyser.fftSize = 512;
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+
+    const container = document.getElementById('visualizer');
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    currentVisualizer = renderer;
+
+    renderer.setClearColor(0x000000, 0);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    const geometry = new THREE.BoxGeometry(0.5, 1, 0.5);
+    const barMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const bars = [];
+    for (let i = 0; i < bufferLength; i++) {
+        const bar = new THREE.Mesh(geometry, barMaterial);
+        bars.push(bar);
+        group.add(bar);
+    }
+
+    camera.position.z = 100;
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        analyser.getByteFrequencyData(dataArray);
+
+        const barWidth = (container.clientWidth / bufferLength) * 2.5;
+
+        for (let i = 0; i < bufferLength; i++) {
+            const scale = dataArray[i] / 10;
+
+            bars[i].position.set((i - bufferLength / 2) * barWidth, 0, 0);
+            bars[i].scale.y = Math.max(scale, 1);
+
+            // Update color based on frequency data
+            //bars[i].material.color.setHSL(i / bufferLength, 1, 0.5); // Dynamic color
+        }
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+    });
+}
+

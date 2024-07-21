@@ -19,6 +19,7 @@
 
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -284,16 +285,62 @@
             }
         }
 
-        .canvas {
-            position: absolute;
-            bottom: -100%;
-            height: 190px;
-            width: 350px;
-            z-index: 9;
-            pointer-events: none;
-            overflow: visible;
+        .visualizer-container {
+            position: relative;
+            width: 0;
+            height: 0;
+            margin-top: 10px;
+            overflow: hidden;
+            z-index: 15;
         }
 
+        canvas { display: block; }
+
+        .visualizer-container .linee {
+            position: absolute;
+            inset: 0;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .visualizer-container .linee::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 120px;
+            background: linear-gradient(transparent, #673ab7, #673ab7, #673ab7, transparent);
+            animation: animate3 6s linear infinite;
+        }
+
+        @keyframes animate3 {
+            0% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+        }
+
+        .visualizer-container .linee::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: #292929;
+        }
+
+        #visualizer {
+            position: relative;
+            width: 350px;
+            height: 160px;
+            background: transparent;
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+        }
 
         .sakura {
             position: absolute;
@@ -331,7 +378,7 @@
         <span></span><span></span><span></span><span></span><span></span>
         <span></span><span></span><span></span><span></span><span></span>
     </div>
-    <button class="musicBtn" id="musicBtn" onclick="toggleMusicplayer()"><i class="fa-solid fa-music"></i></button>
+    <button class="musicBtn" id="musicBtn" onclick="toggleMusicplayer()"><i class="fa-solid fa-music fa-beat"></i></button>
     <div class="main" id="mainMp">
         <div class="top_section">
             <h5>Menu nhạc&nbsp;&nbsp;<i class="fa-solid fa-headphones"></i></h5>
@@ -426,18 +473,24 @@
         </div>
     </div>
 </div>
-<canvas class="canvas" id="canvas"></canvas>
 </div>
+<div class="visualizer-container" id="visualizer-container" onclick="toggleMusicplayer()">
+    <div class="linee"></div>
+    <div id="visualizer">Play music
+    <i class="fa-solid fa-compact-disc fa-spin"></i>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 var togglemusic = false;
 function toggleMusicplayer() {
-if (togglemusic == false) {
-document.getElementById("mainMp").style.transform = "translateX(0%)";
-togglemusic = true;
-} else {
-document.getElementById("mainMp").style.transform = "translateX(110%)";
-togglemusic = false;
-}
+    if (togglemusic == false) {
+        document.getElementById("mainMp").style.transform = "translateX(0%)";
+        togglemusic = true;
+    } else {
+        document.getElementById("mainMp").style.transform = "translateX(110%)";
+        togglemusic = false;
+      }
 }
 function getDetails() {
 document.getElementById("view").innerHTML = Math.floor((Math.random() * 8990) + 100) + "<br><span>Views</span>";
@@ -449,22 +502,20 @@ getDetails();
 var showmore = false;
 function showmoreContent(button) {
     let iconclass = button.querySelector('.fa-solid');
-    let card = document.getElementById("card"), imgBx = document.getElementById("imgBx"), canvas = document.getElementById("canvas")
+    let card = document.getElementById("card"), imgBx = document.getElementById("imgBx");
     if(showmore === false) {
-        card.style.height = "450px";
-        imgBx.style.width = "250px";
-        imgBx.style.height = "250px";
+        card.style.height = "339px";
+        //imgBx.style.width = "250px";
+        //imgBx.style.height = "250px";
         details.style.transform = "translateY(0px)";
-        canvas.style.bottom = "-25%";
         iconclass.classList.replace('fa-chevron-down', 'fa-chevron-up');
         showmore = true;
     }
     else {
         card.style.height = "190px";
-        imgBx.style.width = "150px";
-        imgBx.style.height = "150px";
+        //imgBx.style.width = "150px";
+        //imgBx.style.height = "150px";
         details.style.transform = "translateY(145px)";
-        canvas.style.bottom = "-100%";
         iconclass.classList.replace('fa-chevron-up', 'fa-chevron-down');
         showmore = false;
     }
