@@ -219,7 +219,7 @@ function showVisual(audioTag) {
     source.connect(analyser);
     analyser.connect(audioContext.destination);
 
-    analyser.fftSize = 1024;
+    analyser.fftSize = 2048;
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
@@ -257,7 +257,7 @@ function showVisual(audioTag) {
         const barWidth = (container.clientWidth / bufferLength) * 2.5;
 
         for (let i = 0; i < bufferLength; i++) {
-            const scale = dataArray[i] / 10;
+            const scale = dataArray[i] / 5;
 
             bars[i].position.set((i - bufferLength / 2) * barWidth, 0, 0);
             bars[i].scale.y = Math.max(scale, 1);
