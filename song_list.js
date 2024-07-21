@@ -13,10 +13,16 @@ const All_song = [
     singer: "Jack (5 triệu)"
   },
   {
+    name: "Cắt Đôi Nỗi Sầu",
+    path: "https://files.catbox.moe/uyg1jz.mp3",
+    img: "https://i.imgur.com/SMAxQNt.jpeg",
+    singer: "Tăng Duy Tân"
+  },
+  {
     name: "Đom Đóm",
     path: "https://files.catbox.moe/t2zl0l.mp3",
     img: "https://i.imgur.com/aVTLehn.jpeg",
-    singer: "J97 (5 Củ)"
+    singer: "Jack (5 triệu)"
   },
   {
     name: "FRIENDSHIP",

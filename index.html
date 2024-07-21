@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -468,8 +468,8 @@
                     class="fa-brands fa-facebook"></i></i></button>
             <button onclick="openlink(2)"><i
                 class="fa-brands fa-facebook-messenger"></i></button>
-            <button onclick="alert('Chưa có')"><i class="fa-brands fa-instagram"></i></button>
-            <button onclick="alert('Chưa có')"><i class="fa-brands fa-tiktok"></i></button>
+            <button onclick="simpleToast.show('Chưa có');"><i class="fa-brands fa-instagram"></i></button>
+            <button onclick="simpleToast.show('Chưa cài đặt');"><i class="fa-brands fa-tiktok"></i></button>
         </div>
     </div>
 </div>
@@ -482,6 +482,29 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
+    const simpleToast=function(){var t=document.createElement("style");t.innerHTML=`
+            #toast-container {
+                position: fixed;
+                top: 5%;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 100;
+            }
+            .toast {
+                min-width: 250px;
+                margin-bottom: 10px;
+                background-color: #f2f2f7;
+                color: #000;
+                text-align: center;
+                border-radius: 10px;
+                padding: 10px;
+                font-size: 17px;
+                border: 1px solid #007aff;
+                visibility: hidden;
+                opacity: 0;
+                transition: opacity 0.5s ease-in-out;
+            }
+        `,document.head.appendChild(t);const n=document.createElement("div");return n.id="toast-container",document.body.appendChild(n),{show:function(t,e=3e3){const i=document.createElement("div");i.className="toast",i.innerHTML=t,n.appendChild(i),setTimeout(function(){i.style.visibility="visible",i.style.opacity="1"},100),setTimeout(function(){i.style.opacity="0",setTimeout(function(){n.removeChild(i)},500)},e+500)}}}();
 var togglemusic = false;
 function toggleMusicplayer() {
     if (togglemusic == false) {
@@ -530,7 +553,7 @@ switch (index) {
         window.location = "https://tranvnthuong.github.io/simple-message?idchat=tranvanthuong";
         break;
     default:
-        alert("invalid link");
+        simpleToast.show("invalid link");
 }
 }
 </script>
